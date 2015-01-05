@@ -880,6 +880,11 @@ turing.destroySleepTimer_ = function() {
   }
 };
 
+//custom function for starting with bonus
+function bonus () { 
+turing.startDemo_ ();	 	//falsely starting demo
+setTimeout (turing.enterBonusMode_, 100); //almost instaltly entering bonus mode
+}
 
 /**
  * Preloads sprite, creates dom elements and binds event listeners.
@@ -898,7 +903,7 @@ turing.init = function() {
   turing.switchProgramsToNormalMode();
   turing.setOpHighlightColor('y');
   turing.program_ = new turing.Program();
-  turing.gameOver_ = false;
+  turing.gameOver_ = true; //was false before
   turing.numFailures_ = 0;
   turing.overlay_.create(turing.logoContainer_);
   // If the user has not solved the 'G' program, light the entire logo
@@ -916,9 +921,11 @@ turing.init = function() {
   // Set up the handlers after we've initialized everything above as
   // the handler does use some of those objects.
   if (turing.isImageReady_(mainSprite)) {
-    turing.startDemo_();
+    //turing.startDemo_();
+	bonus();
   } else {
-    mainSprite.onload = turing.startDemo_;
+   // mainSprite.onload = turing.startDemo_;
+	mainSprite.onload = bonus;
   }
 };
 
